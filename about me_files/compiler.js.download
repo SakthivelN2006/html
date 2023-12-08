@@ -1,0 +1,19 @@
+function updatePreview() {
+    const htmlCode = htmlEditor.getValue();
+    const cssCode = "<style>" + cssEditor.getValue() + "</style>";
+    const jsCode = jsEditor.getValue(); // No need for JSON.stringify()
+
+    const fullHtml = htmlCode + cssCode + `<script>${jsCode}
+</script>`;
+
+    const blob = new Blob([fullHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    const previewFrame = document.getElementById('previewFrame');
+    previewFrame.src = url;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const runButton = document.getElementById('runButton');
+    runButton.addEventListener('click', updatePreview);
+});
